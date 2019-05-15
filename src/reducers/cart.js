@@ -1,44 +1,41 @@
-import * as types from './../constants/ActionType';
+import * as Types from './../constants/ActionType';
 
-//var data = JSON.parse(localStorage.getItem('CART'));
+var data = JSON.parse(localStorage.getItem('CART'));
 
-//var initialState = data ? data : [];
-var initialState = [
-    {
-        product : {
-            id          : 1,
-            name        : 'Iphone 8 Plus',
-            image       : 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/image/AppleInc/aos/published/images/i/ph/iphone8/plus/iphone8-plus-spgray-select-2018?wid=940&hei=1112&fmt=png-alpha&qlt=80&.v=1550795419778',
-            description : 'Production By Apple',
-            price       : 500,
-            inventory   : 12,
-            rating      : 4
-        },
-        quantity : 5
-    },
-    {
-        product : {
-            id : 3,
-            name: 'Nokia N95',
-            image: 'https://images-na.ssl-images-amazon.com/images/I/41VLS1i654L.jpg',
-            description: 'Production By Nokia',
-            price: 300,
-            inventory: 20,
-            rating: 2
-        },
-        quantity : 3
-    }
-];
+var initialState = data ? data : [];
 
 const cart = ( state = initialState, action ) =>{
+    var {product, quantity} = action;
+    var index = -1;
     switch(action.type){
 
-        case types.ADD_TO_CART:
-            console.log(action);
+        case Types.ADD_TO_CART:
+            index = findProductInCart(state, product);
+            if(index !== -1){
+                state[index].quantity += quantity;
+            }else{
+                state.push({
+                    product,
+                    quantity
+                });
+            }
+            localStorage.setItem('CART', JSON.stringify(state));
             return [...state];
 
         default : return [...state];
     }
 }
 
+var findProductInCart = (cart, product) => {
+    var index = -1;
+    if(cart.length > 0){
+        for(var i=0; i<cart.length; i++){
+            if(cart[i].product.id === product.id){
+                index = i;
+                break;
+            }
+        }
+    }
+    return index;
+}
 export default cart;
