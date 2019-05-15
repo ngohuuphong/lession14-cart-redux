@@ -9,7 +9,7 @@ var initialState = [
         rating: 4
     },
     {
-        id : 1,
+        id : 2,
         name: 'Samsung Note 9',
         image: 'https://cdn1.vienthonga.vn/image/2018/7/1/samsung-galaxy-note9-600x600.jpg',
         description: 'Production By Samsung',
@@ -18,7 +18,7 @@ var initialState = [
         rating: 5
     },
     {
-        id : 1,
+        id : 3,
         name: 'Nokia N95',
         image: 'https://images-na.ssl-images-amazon.com/images/I/41VLS1i654L.jpg',
         description: 'Production By Nokia',
