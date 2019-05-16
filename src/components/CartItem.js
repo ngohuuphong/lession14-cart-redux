@@ -4,16 +4,9 @@ import * as Message from './../constants/Message';
 
 class CartItem extends Component{
 
-	constructor(props){
-		super(props);
-		this.state = {
-			quantity: 1
-		}
-	}
-
 	render(){
 		var { item } = this.props;
-		var { quantity } = item.quantity > 0 ? item : this.state;
+		var { quantity } = item;
 		
 		return (
 			<tr>
@@ -66,12 +59,10 @@ class CartItem extends Component{
 		onChangeMessage(Message.MSG_DELETE_PRODUCT_IN_CART_SUCCESS);
 	}
 	onUpdateQuantity = (product, quantity) => {
-		var {onUpdateProductInCart} = this.props;
+		var {onUpdateProductInCart, onChangeMessage} = this.props;
 		if(quantity > 0){
-			this.setState({
-				quantity: quantity
-			});
 			onUpdateProductInCart(product, quantity);
+			onChangeMessage(Message.MSG_UPDATE_TO_CART_SUCCESS);
 		}
 	}
 }
